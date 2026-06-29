@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+﻿import { useState, useCallback } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { Sidebar } from './Sidebar'
 import { Header } from './Header'
@@ -17,7 +17,7 @@ export function Layout() {
   }, [])
 
   return (
-    <div className="flex h-screen bg-[#061409] overflow-hidden">
+    <div className="flex h-screen bg-[#0B0B0B] overflow-hidden">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">

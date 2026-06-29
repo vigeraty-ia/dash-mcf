@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { AlertCircle } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
@@ -67,7 +67,7 @@ function PaymentBadge({ method }: { method: string }) {
     ? 'bg-[#C8900A]/20 text-[#C8900A] border-[#C8900A]/30'
     : isCard
     ? 'bg-[#74B9FF]/20 text-[#74B9FF] border-[#74B9FF]/30'
-    : 'bg-gray-500/20 text-[#7AA880] border-gray-500/30'
+    : 'bg-gray-500/20 text-[#888888] border-gray-500/30'
   return (
     <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold whitespace-nowrap ${cls}`}>
       {method || '—'}
@@ -76,13 +76,13 @@ function PaymentBadge({ method }: { method: string }) {
 }
 
 function SourceBadge({ source }: { source: string }) {
-  if (!source) return <span className="text-[#4A6E52] text-xs">—</span>
+  if (!source) return <span className="text-[#555555] text-xs">—</span>
   const s = source.toLowerCase()
   const cls = s.includes('instagram') || s.includes('ig')
     ? 'bg-pink-500/20 text-pink-400 border-pink-500/30'
     : s.includes('facebook') || s.includes('fb')
     ? 'bg-blue-500/20 text-blue-400 border-blue-500/30'
-    : 'bg-gray-500/20 text-[#7AA880] border-gray-500/30'
+    : 'bg-gray-500/20 text-[#888888] border-gray-500/30'
   return (
     <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold max-w-[120px] truncate ${cls}`} title={source}>
       {source}
@@ -159,8 +159,8 @@ export default function Sales() {
       {/* Header + Filters */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-xl font-bold text-[#E0EEE0]">Vendas</h1>
-          <p className="text-sm text-[#7AA880] mt-0.5">
+          <h1 className="text-xl font-bold text-[#F0F0F0]">Vendas</h1>
+          <p className="text-sm text-[#888888] mt-0.5">
             {loading ? 'Carregando...' : (
               <>
                 {filtered.length} {filtered.length === 1 ? 'venda' : 'vendas'} ·{' '}
@@ -192,20 +192,20 @@ export default function Sales() {
                 type="date"
                 value={customStart}
                 onChange={e => setCustomStart(e.target.value)}
-                className="h-9 px-3 rounded-md border border-[#1B3D20] bg-[#081208] text-[#E0EEE0] text-sm focus:outline-none focus:ring-1 focus:ring-[#4DB848]"
+                className="h-9 px-3 rounded-md border border-[#222222] bg-[#0D0D0D] text-[#F0F0F0] text-sm focus:outline-none focus:ring-1 focus:ring-[#C8FF00]"
               />
-              <span className="text-[#7AA880] text-sm">até</span>
+              <span className="text-[#888888] text-sm">até</span>
               <input
                 type="date"
                 value={customEnd}
                 min={customStart}
                 onChange={e => setCustomEnd(e.target.value)}
-                className="h-9 px-3 rounded-md border border-[#1B3D20] bg-[#081208] text-[#E0EEE0] text-sm focus:outline-none focus:ring-1 focus:ring-[#4DB848]"
+                className="h-9 px-3 rounded-md border border-[#222222] bg-[#0D0D0D] text-[#F0F0F0] text-sm focus:outline-none focus:ring-1 focus:ring-[#C8FF00]"
               />
               <button
                 onClick={applyCustom}
                 disabled={!customStart || !customEnd || customStart > customEnd}
-                className="h-9 px-4 rounded-md bg-[#4DB848] text-white text-sm font-medium hover:bg-[#3da038] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="h-9 px-4 rounded-md bg-[#C8FF00] text-white text-sm font-medium hover:bg-[#A3CC00] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 Aplicar
               </button>
@@ -262,9 +262,9 @@ export default function Sales() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-[#1B3D20] bg-[#081208]">
+                    <tr className="border-b border-[#222222] bg-[#0D0D0D]">
                       {['Data', 'Comprador', 'Produto', 'Plano', 'Valor', 'Pagamento', 'Campanha', 'Origem', 'Conjunto'].map((h) => (
-                        <th key={h} className="text-left px-4 py-3 text-xs font-medium text-[#7AA880] uppercase tracking-wide whitespace-nowrap">
+                        <th key={h} className="text-left px-4 py-3 text-xs font-medium text-[#888888] uppercase tracking-wide whitespace-nowrap">
                           {h}
                         </th>
                       ))}
@@ -273,7 +273,7 @@ export default function Sales() {
                   <tbody>
                     {paginated.length === 0 ? (
                       <tr>
-                        <td colSpan={9} className="px-4 py-12 text-center text-[#7AA880]">
+                        <td colSpan={9} className="px-4 py-12 text-center text-[#888888]">
                           {error ? 'Não foi possível carregar os dados.' : 'Nenhuma venda encontrada.'}
                         </td>
                       </tr>
@@ -281,21 +281,21 @@ export default function Sales() {
                       paginated.map((sale, i) => (
                         <tr
                           key={sale.id}
-                          className={`border-b border-[#1B3D20]/50 hover:bg-[#142918]/40 transition-colors ${i === paginated.length - 1 ? 'border-0' : ''}`}
+                          className={`border-b border-[#222222]/50 hover:bg-[#1A1A1A]/40 transition-colors ${i === paginated.length - 1 ? 'border-0' : ''}`}
                         >
-                          <td className="px-4 py-3 text-[#7AA880] whitespace-nowrap text-xs">
+                          <td className="px-4 py-3 text-[#888888] whitespace-nowrap text-xs">
                             <div>{sale.data ?? '—'}</div>
-                            {sale.horario && <div className="text-[#4A6E52]">{sale.horario.slice(0, 5)}</div>}
+                            {sale.horario && <div className="text-[#555555]">{sale.horario.slice(0, 5)}</div>}
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#E0EEE0] font-medium truncate max-w-[150px] text-sm">{sale.nome_do_comprador || '—'}</p>
-                            <p className="text-[#4A6E52] text-xs truncate max-w-[150px]">{sale.email || ''}</p>
+                            <p className="text-[#F0F0F0] font-medium truncate max-w-[150px] text-sm">{sale.nome_do_comprador || '—'}</p>
+                            <p className="text-[#555555] text-xs truncate max-w-[150px]">{sale.email || ''}</p>
                           </td>
                           <td className="px-4 py-3">
                             <p className="text-gray-200 truncate max-w-[150px] text-xs">{sale.produto_comprado || '—'}</p>
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#7AA880] truncate max-w-[130px] text-xs">{sale.plano_produto || '—'}</p>
+                            <p className="text-[#888888] truncate max-w-[130px] text-xs">{sale.plano_produto || '—'}</p>
                           </td>
                           <td className="px-4 py-3 whitespace-nowrap">
                             <span className="text-[#C8900A] font-semibold">{formatCurrency(sale.valor_venda ?? 0)}</span>
@@ -304,7 +304,7 @@ export default function Sales() {
                             <PaymentBadge method={sale.metodo_de_pagamento} />
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#7AA880] truncate max-w-[140px] text-xs" title={sale.utm_campaign}>
+                            <p className="text-[#888888] truncate max-w-[140px] text-xs" title={sale.utm_campaign}>
                               {sale.utm_campaign || '—'}
                             </p>
                           </td>
@@ -312,7 +312,7 @@ export default function Sales() {
                             <SourceBadge source={sale.utm_source} />
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#7AA880] truncate max-w-[130px] text-xs" title={sale.utm_content}>
+                            <p className="text-[#888888] truncate max-w-[130px] text-xs" title={sale.utm_content}>
                               {sale.utm_content || '—'}
                             </p>
                           </td>
@@ -324,15 +324,15 @@ export default function Sales() {
               </div>
 
               {totalPages > 1 && (
-                <div className="flex items-center justify-between px-4 py-3 border-t border-[#1B3D20]">
-                  <p className="text-xs text-[#7AA880]">
+                <div className="flex items-center justify-between px-4 py-3 border-t border-[#222222]">
+                  <p className="text-xs text-[#888888]">
                     {(page - 1) * ITEMS_PER_PAGE + 1}–{Math.min(page * ITEMS_PER_PAGE, filtered.length)} de {filtered.length} vendas
                   </p>
                   <div className="flex items-center gap-1 flex-wrap">
                     <button
                       onClick={() => setPage(p => Math.max(1, p - 1))}
                       disabled={page === 1}
-                      className="px-2 h-8 rounded text-xs text-[#7AA880] hover:bg-[#142918] disabled:opacity-30"
+                      className="px-2 h-8 rounded text-xs text-[#888888] hover:bg-[#1A1A1A] disabled:opacity-30"
                     >
                       ←
                     </button>
@@ -342,17 +342,17 @@ export default function Sales() {
                         <button
                           key={p}
                           onClick={() => setPage(p)}
-                          className={`w-8 h-8 rounded text-xs font-medium transition-colors ${page === p ? 'bg-[#C8900A] text-[#E0EEE0]' : 'text-[#7AA880] hover:bg-[#142918]'}`}
+                          className={`w-8 h-8 rounded text-xs font-medium transition-colors ${page === p ? 'bg-[#C8900A] text-[#F0F0F0]' : 'text-[#888888] hover:bg-[#1A1A1A]'}`}
                         >
                           {p}
                         </button>
                       )
                     })}
-                    {totalPages > 8 && <span className="text-[#4A6E52] text-xs px-1">…{totalPages}</span>}
+                    {totalPages > 8 && <span className="text-[#555555] text-xs px-1">…{totalPages}</span>}
                     <button
                       onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                       disabled={page === totalPages}
-                      className="px-2 h-8 rounded text-xs text-[#7AA880] hover:bg-[#142918] disabled:opacity-30"
+                      className="px-2 h-8 rounded text-xs text-[#888888] hover:bg-[#1A1A1A] disabled:opacity-30"
                     >
                       →
                     </button>

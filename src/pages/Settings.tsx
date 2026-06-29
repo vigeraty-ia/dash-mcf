@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Plus, Trash2, Loader2, RefreshCw } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -61,11 +61,11 @@ function GeneralTab() {
       </CardHeader>
       <CardContent className="space-y-5">
         <div>
-          <label className="text-sm text-[#7AA880] block mb-1.5">Nome do Aplicativo</label>
+          <label className="text-sm text-[#888888] block mb-1.5">Nome do Aplicativo</label>
           <Input value={appName} onChange={(e) => setAppName(e.target.value)} />
         </div>
         <div>
-          <label className="text-sm text-[#7AA880] block mb-1.5">Fuso Horário</label>
+          <label className="text-sm text-[#888888] block mb-1.5">Fuso Horário</label>
           <Select value={timezone} onValueChange={setTimezone}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
@@ -76,7 +76,7 @@ function GeneralTab() {
           </Select>
         </div>
         <div>
-          <label className="text-sm text-[#7AA880] block mb-1.5">Moeda Padrão</label>
+          <label className="text-sm text-[#888888] block mb-1.5">Moeda Padrão</label>
           <Select value={currency} onValueChange={setCurrency}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
@@ -133,13 +133,13 @@ function FacebookTab() {
       </CardHeader>
       <CardContent className="space-y-5">
         {maskedToken && (
-          <div className="bg-[#081208] rounded-lg p-3">
-            <p className="text-xs text-[#7AA880] mb-1">Token atual</p>
-            <p className="text-[#E0EEE0] font-mono text-sm">{maskedToken}</p>
+          <div className="bg-[#0D0D0D] rounded-lg p-3">
+            <p className="text-xs text-[#888888] mb-1">Token atual</p>
+            <p className="text-[#F0F0F0] font-mono text-sm">{maskedToken}</p>
           </div>
         )}
         <div>
-          <label className="text-sm text-[#7AA880] block mb-1.5">Atualizar Access Token</label>
+          <label className="text-sm text-[#888888] block mb-1.5">Atualizar Access Token</label>
           <div className="flex gap-2">
             <Input
               type="password"
@@ -153,9 +153,9 @@ function FacebookTab() {
             </Button>
           </div>
         </div>
-        <div className="flex items-center justify-between pt-2 border-t border-[#1B3D20]">
+        <div className="flex items-center justify-between pt-2 border-t border-[#222222]">
           <div>
-            <p className="text-sm text-[#7AA880]">Sincronizar dados agora</p>
+            <p className="text-sm text-[#888888]">Sincronizar dados agora</p>
             {lastSync && (
               <p className="text-xs text-gray-500 mt-0.5">
                 Última sinc: {new Date(lastSync).toLocaleString('pt-BR')}
@@ -219,19 +219,19 @@ function TaxesTab() {
         </CardHeader>
         <CardContent className="p-0">
           {taxes.length === 0 ? (
-            <p className="text-[#7AA880] text-sm text-center py-8">Nenhuma taxa cadastrada.</p>
+            <p className="text-[#888888] text-sm text-center py-8">Nenhuma taxa cadastrada.</p>
           ) : (
-            <div className="divide-y divide-[#1B3D20]">
+            <div className="divide-y divide-[#222222]">
               {taxes.map((tax) => (
-                <div key={tax.id} className="flex items-center justify-between px-6 py-4 hover:bg-[#142918]/40 transition-colors">
+                <div key={tax.id} className="flex items-center justify-between px-6 py-4 hover:bg-[#1A1A1A]/40 transition-colors">
                   <div className="flex items-center gap-3">
                     <div>
-                      <p className="text-[#E0EEE0] font-medium text-sm">{tax.name}</p>
+                      <p className="text-[#F0F0F0] font-medium text-sm">{tax.name}</p>
                       <div className="flex items-center gap-2 mt-1">
                         <Badge variant="secondary" className="text-xs px-2 py-0">
                           {tax.appliesTo === 'revenue' ? 'Receita' : 'Comissão'}
                         </Badge>
-                        <span className="text-xs text-[#7AA880]">
+                        <span className="text-xs text-[#888888]">
                           {tax.type === 'percentage' ? `${tax.value}%` : formatCurrency(tax.value)}
                         </span>
                       </div>
@@ -240,7 +240,7 @@ function TaxesTab() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-[#7AA880] hover:text-[#E94560]"
+                    className="text-[#888888] hover:text-[#E94560]"
                     onClick={() => setDeleteId(tax.id)}
                   >
                     <Trash2 className="w-4 h-4" />
@@ -261,7 +261,7 @@ function TaxesTab() {
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <label className="text-sm text-[#7AA880] block mb-1.5">Nome da Taxa</label>
+              <label className="text-sm text-[#888888] block mb-1.5">Nome da Taxa</label>
               <Input
                 placeholder="Ex: Gateway Hotmart"
                 value={form.name}
@@ -270,7 +270,7 @@ function TaxesTab() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-sm text-[#7AA880] block mb-1.5">Tipo</label>
+                <label className="text-sm text-[#888888] block mb-1.5">Tipo</label>
                 <Select value={form.type} onValueChange={(v) => setForm({ ...form, type: v as 'percentage' | 'fixed' })}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -280,7 +280,7 @@ function TaxesTab() {
                 </Select>
               </div>
               <div>
-                <label className="text-sm text-[#7AA880] block mb-1.5">Valor</label>
+                <label className="text-sm text-[#888888] block mb-1.5">Valor</label>
                 <Input
                   type="number"
                   placeholder={form.type === 'percentage' ? '9.9' : '10.00'}
@@ -290,7 +290,7 @@ function TaxesTab() {
               </div>
             </div>
             <div>
-              <label className="text-sm text-[#7AA880] block mb-1.5">Aplica-se a</label>
+              <label className="text-sm text-[#888888] block mb-1.5">Aplica-se a</label>
               <Select value={form.appliesTo} onValueChange={(v) => setForm({ ...form, appliesTo: v as 'revenue' | 'commission' })}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
@@ -327,7 +327,7 @@ function TaxesTab() {
 export default function Settings() {
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-[#E0EEE0]">Configurações</h1>
+      <h1 className="text-xl font-bold text-[#F0F0F0]">Configurações</h1>
       <Tabs defaultValue="general">
         <TabsList className="mb-4">
           <TabsTrigger value="general">Geral</TabsTrigger>

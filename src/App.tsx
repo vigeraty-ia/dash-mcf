@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import Dashboard from './pages/Dashboard'
@@ -17,8 +17,8 @@ export default function App() {
 
   if (!ready) {
     return (
-      <div className="min-h-screen bg-[#061409] flex items-center justify-center">
-        <div className="w-6 h-6 border-2 border-[#4DB848] border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-[#C8FF00] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }

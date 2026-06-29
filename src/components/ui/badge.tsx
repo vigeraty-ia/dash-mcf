@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
@@ -7,16 +7,16 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default:     "border-transparent bg-[#4DB848] text-white",
-        secondary:   "border-transparent bg-[#0D2114] text-[#7AA880]",
+        default:     "border-transparent bg-[#C8FF00] text-white",
+        secondary:   "border-transparent bg-[#141414] text-[#888888]",
         destructive: "border-transparent bg-[#D45820] text-white",
-        outline:     "text-[#E0EEE0] border-[#1B3D20]",
-        success:     "bg-[#4DB848]/15 text-[#4DB848] border border-[#4DB848]/30",
+        outline:     "text-[#F0F0F0] border-[#222222]",
+        success:     "bg-[#C8FF00]/15 text-[#C8FF00] border border-[#C8FF00]/30",
         warning:     "bg-[#C8900A]/20 text-[#E8A820] border border-[#C8900A]/30",
         error:       "bg-[#D45820]/20 text-[#E87040] border border-[#D45820]/30",
-        info:        "bg-[#7FCC5E]/15 text-[#7FCC5E] border border-[#7FCC5E]/30",
-        gray:        "bg-[#1B3D20]/60 text-[#7AA880] border border-[#1B3D20]",
-        active:      "bg-[#4DB848]/15 text-[#4DB848] border border-[#4DB848]/30",
+        info:        "bg-[#DFFF4D]/15 text-[#DFFF4D] border border-[#DFFF4D]/30",
+        gray:        "bg-[#222222]/60 text-[#888888] border border-[#222222]",
+        active:      "bg-[#C8FF00]/15 text-[#C8FF00] border border-[#C8FF00]/30",
         paused:      "bg-[#C8900A]/20 text-[#E8A820] border border-[#C8900A]/30",
       },
     },

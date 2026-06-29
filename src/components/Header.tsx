@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+﻿import { useLocation } from 'react-router-dom'
 import { Menu, RefreshCw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -21,18 +21,18 @@ export function Header({ onMenuClick, onRefresh, refreshing }: HeaderProps) {
   const pageName = routeNames[location.pathname] ?? 'Dashboard'
 
   return (
-    <header className="h-16 bg-[#0A1C0E] border-b border-[#1B3D20] flex items-center justify-between px-4 lg:px-6 flex-shrink-0">
+    <header className="h-16 bg-[#0A1C0E] border-b border-[#222222] flex items-center justify-between px-4 lg:px-6 flex-shrink-0">
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuClick}
-          className="lg:hidden text-[#7AA880] hover:text-[#E0EEE0] transition-colors"
+          className="lg:hidden text-[#888888] hover:text-[#F0F0F0] transition-colors"
         >
           <Menu className="w-5 h-5" />
         </button>
-        <div className="flex items-center gap-2 text-sm text-[#7AA880]">
+        <div className="flex items-center gap-2 text-sm text-[#888888]">
           <span>Restart Intestinal</span>
-          <span className="text-[#1B3D20]">/</span>
-          <span className="text-[#E0EEE0] font-medium">{pageName}</span>
+          <span className="text-[#222222]">/</span>
+          <span className="text-[#F0F0F0] font-medium">{pageName}</span>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-export type SaleStatus = 'approved' | 'pending' | 'refunded'
+﻿export type SaleStatus = 'approved' | 'pending' | 'refunded'
 export type SaleType = 'paid' | 'organic'
 export type CheckoutPlatform = 'Monetizze' | 'Hotmart' | 'Kiwify' | 'Kirvano'
 export type CampaignStatus = 'active' | 'paused'

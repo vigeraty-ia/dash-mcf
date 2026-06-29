@@ -1,4 +1,4 @@
-import type { Campaign, Sale, ChartDataPoint, SourceData } from '@/types'
+﻿import type { Campaign, Sale, ChartDataPoint, SourceData } from '@/types'
 
 export const mockCampaigns: Campaign[] = [
   {
@@ -946,7 +946,7 @@ export const mockChartData: ChartDataPoint[] = [
 
 export const mockSourceData: SourceData[] = [
   { name: 'Facebook Ads', value: 68, color: '#74B9FF' },
-  { name: 'Orgânico', value: 18, color: '#00B894' },
+  { name: 'Orgânico', value: 18, color: '#C8FF00' },
   { name: 'WhatsApp', value: 9, color: '#25D366' },
   { name: 'Outros', value: 5, color: '#6C757D' },
 ]

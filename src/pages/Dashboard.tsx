@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   PieChart, Pie, Cell, ResponsiveContainer,
@@ -123,7 +123,7 @@ interface MetricCardProps {
 function MetricCard({ label, value, variation, loading }: MetricCardProps) {
   const isPositive = (variation ?? 0) >= 0
   const Arrow = isPositive ? ArrowUpRight : ArrowDownRight
-  const color = isPositive ? 'text-[#4DB848]' : 'text-[#D45820]'
+  const color = isPositive ? 'text-[#C8FF00]' : 'text-[#D45820]'
 
   if (loading) {
     return (
@@ -137,17 +137,17 @@ function MetricCard({ label, value, variation, loading }: MetricCardProps) {
     )
   }
   return (
-    <Card className="hover:border-[#4DB848]/30 transition-colors">
+    <Card className="hover:border-[#C8FF00]/30 transition-colors">
       <CardContent className="p-4">
-        <span className="text-[10px] text-[#7AA880] font-semibold uppercase tracking-wider block mb-2 leading-tight">{label}</span>
-        <p className="text-lg font-bold text-[#E0EEE0] mb-1 leading-tight truncate">{value}</p>
+        <span className="text-[10px] text-[#888888] font-semibold uppercase tracking-wider block mb-2 leading-tight">{label}</span>
+        <p className="text-lg font-bold text-[#F0F0F0] mb-1 leading-tight truncate">{value}</p>
         {variation !== null ? (
           <div className={`flex items-center gap-1 text-[10px] font-medium ${color}`}>
             <Arrow className="w-3 h-3 flex-shrink-0" />
             <span className="truncate">{Math.abs(variation).toFixed(1)}% anterior</span>
           </div>
         ) : (
-          <div className="text-[10px] text-[#4A6E52]">período completo</div>
+          <div className="text-[10px] text-[#555555]">período completo</div>
         )}
       </CardContent>
     </Card>
@@ -157,13 +157,13 @@ function MetricCard({ label, value, variation, loading }: MetricCardProps) {
 const LineTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ name: string; value: number; color: string }>; label?: string }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#0D2114] border border-[#1B3D20] rounded-lg p-3 text-sm shadow-xl">
-      <p className="text-[#7AA880] mb-2">{label}</p>
+    <div className="bg-[#141414] border border-[#222222] rounded-lg p-3 text-sm shadow-xl">
+      <p className="text-[#888888] mb-2">{label}</p>
       {payload.map((e) => (
         <div key={e.name} className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full" style={{ backgroundColor: e.color }} />
-          <span className="text-[#7AA880]">{e.name}:</span>
-          <span className="text-[#E0EEE0] font-semibold">{formatCurrency(e.value)}</span>
+          <span className="text-[#888888]">{e.name}:</span>
+          <span className="text-[#F0F0F0] font-semibold">{formatCurrency(e.value)}</span>
         </div>
       ))}
     </div>
@@ -173,9 +173,9 @@ const LineTooltip = ({ active, payload, label }: { active?: boolean; payload?: A
 const PieTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ name: string; value: number }> }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#0D2114] border border-[#1B3D20] rounded-lg p-3 text-sm shadow-xl">
-      <p className="text-[#E0EEE0] font-semibold">{payload[0].name}</p>
-      <p className="text-[#7AA880]">{payload[0].value}% das vendas</p>
+    <div className="bg-[#141414] border border-[#222222] rounded-lg p-3 text-sm shadow-xl">
+      <p className="text-[#F0F0F0] font-semibold">{payload[0].name}</p>
+      <p className="text-[#888888]">{payload[0].value}% das vendas</p>
     </div>
   )
 }
@@ -183,9 +183,9 @@ const PieTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ n
 const BarTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ value: number }>; label?: string }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#0D2114] border border-[#1B3D20] rounded-lg p-3 text-sm shadow-xl">
-      <p className="text-[#7AA880] mb-1">{label}</p>
-      <p className="text-[#E0EEE0] font-semibold">{payload[0].value} {payload[0].value === 1 ? 'venda' : 'vendas'}</p>
+    <div className="bg-[#141414] border border-[#222222] rounded-lg p-3 text-sm shadow-xl">
+      <p className="text-[#888888] mb-1">{label}</p>
+      <p className="text-[#F0F0F0] font-semibold">{payload[0].value} {payload[0].value === 1 ? 'venda' : 'vendas'}</p>
     </div>
   )
 }
@@ -193,13 +193,13 @@ const BarTooltip = ({ active, payload, label }: { active?: boolean; payload?: Ar
 const ComboTooltip = ({ active, payload, label }: { active?: boolean; payload?: Array<{ name: string; value: number; color: string }>; label?: string }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#0D2114] border border-[#1B3D20] rounded-lg p-3 text-sm shadow-xl">
-      <p className="text-[#7AA880] mb-2">{label}</p>
+    <div className="bg-[#141414] border border-[#222222] rounded-lg p-3 text-sm shadow-xl">
+      <p className="text-[#888888] mb-2">{label}</p>
       {payload.map(e => (
         <div key={e.name} className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: e.color }} />
-          <span className="text-[#7AA880]">{e.name}:</span>
-          <span className="text-[#E0EEE0] font-semibold">
+          <span className="text-[#888888]">{e.name}:</span>
+          <span className="text-[#F0F0F0] font-semibold">
             {e.name === 'ROAS' ? `${e.value.toFixed(2)}x`
               : e.name === 'CPA' ? formatCurrency(e.value)
               : formatNumber(e.value)}
@@ -213,9 +213,9 @@ const ComboTooltip = ({ active, payload, label }: { active?: boolean; payload?: 
 const DonutTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ name: string; value: number; payload: { color: string } }> }) => {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-[#0D2114] border border-[#1B3D20] rounded-lg p-3 text-sm shadow-xl">
-      <p className="text-[#E0EEE0] font-semibold">{payload[0].name}</p>
-      <p className="text-[#7AA880]">{payload[0].value} {payload[0].value === 1 ? 'venda' : 'vendas'}</p>
+    <div className="bg-[#141414] border border-[#222222] rounded-lg p-3 text-sm shadow-xl">
+      <p className="text-[#F0F0F0] font-semibold">{payload[0].name}</p>
+      <p className="text-[#888888]">{payload[0].value} {payload[0].value === 1 ? 'venda' : 'vendas'}</p>
     </div>
   )
 }
@@ -396,7 +396,7 @@ export default function Dashboard() {
       srcCount[label] = (srcCount[label] ?? 0) + 1
     })
     const srcColors: Record<string, string> = {
-      Instagram: '#E4405F', Facebook: '#1877F2', Google: '#34A853', Orgânico: '#4DB848', Outros: '#7AA880',
+      Instagram: '#E4405F', Facebook: '#1877F2', Google: '#34A853', Orgânico: '#C8FF00', Outros: '#888888',
     }
     const total = sales.length || 1
     const srcPoints: SourcePoint[] = Object.entries(srcCount)
@@ -430,8 +430,8 @@ export default function Dashboard() {
       const key = m.includes('pix') ? 'PIX' : m.includes('cart') || m.includes('cred') ? 'Cartão' : m.includes('boleto') ? 'Boleto' : 'Outros'
       payCounts[key] = (payCounts[key] ?? 0) + 1
     })
-    const PAY_COLORS: Record<string, string> = { PIX: '#4DB848', Cartão: '#C8900A', Boleto: '#D45820', Outros: '#7AA880' }
-    setPaymentData(Object.entries(payCounts).sort((a, b) => b[1] - a[1]).map(([name, value]) => ({ name, value, color: PAY_COLORS[name] ?? '#7AA880' })))
+    const PAY_COLORS: Record<string, string> = { PIX: '#C8FF00', Cartão: '#C8900A', Boleto: '#D45820', Outros: '#888888' }
+    setPaymentData(Object.entries(payCounts).sort((a, b) => b[1] - a[1]).map(([name, value]) => ({ name, value, color: PAY_COLORS[name] ?? '#888888' })))
 
     // ── Vendas por Dia da Semana ──
     const DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
@@ -497,7 +497,7 @@ export default function Dashboard() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-xl font-bold text-[#E0EEE0]">Visão Geral</h1>
+        <h1 className="text-xl font-bold text-[#F0F0F0]">Visão Geral</h1>
         <div className="flex items-center gap-2 flex-wrap">
           <Select value={period} onValueChange={(v) => setPeriod(v as Period)}>
             <SelectTrigger className="w-44"><SelectValue /></SelectTrigger>
@@ -517,20 +517,20 @@ export default function Dashboard() {
                 type="date"
                 value={customStart}
                 onChange={e => setCustomStart(e.target.value)}
-                className="h-9 px-3 rounded-md border border-[#1B3D20] bg-[#081208] text-[#E0EEE0] text-sm focus:outline-none focus:ring-1 focus:ring-[#4DB848]"
+                className="h-9 px-3 rounded-md border border-[#222222] bg-[#0D0D0D] text-[#F0F0F0] text-sm focus:outline-none focus:ring-1 focus:ring-[#C8FF00]"
               />
-              <span className="text-[#7AA880] text-sm">até</span>
+              <span className="text-[#888888] text-sm">até</span>
               <input
                 type="date"
                 value={customEnd}
                 min={customStart}
                 onChange={e => setCustomEnd(e.target.value)}
-                className="h-9 px-3 rounded-md border border-[#1B3D20] bg-[#081208] text-[#E0EEE0] text-sm focus:outline-none focus:ring-1 focus:ring-[#4DB848]"
+                className="h-9 px-3 rounded-md border border-[#222222] bg-[#0D0D0D] text-[#F0F0F0] text-sm focus:outline-none focus:ring-1 focus:ring-[#C8FF00]"
               />
               <button
                 onClick={applyCustom}
                 disabled={!customStart || !customEnd || customStart > customEnd}
-                className="h-9 px-4 rounded-md bg-[#4DB848] text-white text-sm font-medium hover:bg-[#3da038] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="h-9 px-4 rounded-md bg-[#C8FF00] text-white text-sm font-medium hover:bg-[#A3CC00] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 Aplicar
               </button>
@@ -554,23 +554,23 @@ export default function Dashboard() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-base">CPA × ROAS × Vendas</CardTitle>
-              <span className="text-[10px] text-[#4A6E52]">barras = vendas · linhas = métricas FB</span>
+              <span className="text-[10px] text-[#555555]">barras = vendas · linhas = métricas FB</span>
             </div>
           </CardHeader>
           <CardContent>
             {loading ? <Skeleton className="h-64 w-full" /> : dailyMetrics.length === 0 ? (
-              <div className="h-64 flex items-center justify-center text-[#4A6E52] text-sm">
+              <div className="h-64 flex items-center justify-center text-[#555555] text-sm">
                 {getSetting('facebook_token') ? 'Sem dados para o período.' : 'Conecte o Facebook Ads em Integrações.'}
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={260}>
                 <ComposedChart data={dailyMetrics} margin={{ top: 5, right: 50, left: -10, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1B3D20" vertical={false} />
-                  <XAxis dataKey="date" tick={{ fill: '#7AA880', fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis yAxisId="metrics" orientation="left" tick={{ fill: '#7AA880', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `${v.toFixed(1)}x`} />
-                  <YAxis yAxisId="sales" orientation="right" tick={{ fill: '#7AA880', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} width={40} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#222222" vertical={false} />
+                  <XAxis dataKey="date" tick={{ fill: '#888888', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis yAxisId="metrics" orientation="left" tick={{ fill: '#888888', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `${v.toFixed(1)}x`} />
+                  <YAxis yAxisId="sales" orientation="right" tick={{ fill: '#888888', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} width={40} />
                   <Tooltip content={<ComboTooltip />} />
-                  <Legend formatter={v => <span style={{ color: '#7AA880', fontSize: '12px' }}>{v}</span>} />
+                  <Legend formatter={v => <span style={{ color: '#888888', fontSize: '12px' }}>{v}</span>} />
                   <Bar yAxisId="sales" dataKey="sales" name="Vendas" fill="#6C5CE7" fillOpacity={0.65} radius={[3, 3, 0, 0]} />
                   <Line yAxisId="metrics" type="monotone" dataKey="roas" name="ROAS" stroke="#74B9FF" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
                   <Line yAxisId="metrics" type="monotone" dataKey="cpa" name="CPA" stroke="#FF6B6B" strokeWidth={2} dot={false} activeDot={{ r: 4 }} hide={dailyMetrics.every(d => d.cpa === 0)} />
@@ -585,12 +585,12 @@ export default function Dashboard() {
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-base">Funil de Conversão</CardTitle>
-              <span className="text-[10px] text-[#4A6E52]">clique → aprovado</span>
+              <span className="text-[10px] text-[#555555]">clique → aprovado</span>
             </div>
           </CardHeader>
           <CardContent>
             {loading ? <Skeleton className="h-64 w-full" /> : !funnelData || (funnelData.lpv === 0 && funnelData.ic === 0 && funnelData.purchases === 0) ? (
-              <div className="h-64 flex items-center justify-center text-[#4A6E52] text-sm">
+              <div className="h-64 flex items-center justify-center text-[#555555] text-sm">
                 {getSetting('facebook_token') ? 'Sem dados de funil.' : 'Conecte o Facebook Ads.'}
               </div>
             ) : (() => {
@@ -611,18 +611,18 @@ export default function Dashboard() {
                   {steps.map(s => (
                     <div key={s.label}>
                       <div className="flex items-center justify-between text-xs mb-1">
-                        <span className="text-[#E0EEE0]">{s.label}</span>
-                        <span className="text-[#7AA880]">{formatNumber(s.value)} · <span className="text-[#C8900A] font-semibold">{s.pct}</span></span>
+                        <span className="text-[#F0F0F0]">{s.label}</span>
+                        <span className="text-[#888888]">{formatNumber(s.value)} · <span className="text-[#C8900A] font-semibold">{s.pct}</span></span>
                       </div>
-                      <div className="h-1.5 bg-[#1B3D20] rounded-full overflow-hidden">
-                        <div className="h-full bg-[#4DB848] rounded-full transition-all" style={{ width: `${Math.min(s.bar, 100)}%` }} />
+                      <div className="h-1.5 bg-[#222222] rounded-full overflow-hidden">
+                        <div className="h-full bg-[#C8FF00] rounded-full transition-all" style={{ width: `${Math.min(s.bar, 100)}%` }} />
                       </div>
                     </div>
                   ))}
-                  <div className="border-t border-[#1B3D20] pt-3 space-y-2">
+                  <div className="border-t border-[#222222] pt-3 space-y-2">
                     {rates.map(r => (
                       <div key={r.label} className="flex items-center justify-between text-xs">
-                        <span className="text-[#7AA880]">{r.label}</span>
+                        <span className="text-[#888888]">{r.label}</span>
                         <span className="text-[#C8900A] font-semibold">{r.value}</span>
                       </div>
                     ))}
@@ -643,16 +643,16 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             {loading ? <Skeleton className="h-64 w-full" /> : chartData.length === 0 ? (
-              <div className="h-64 flex items-center justify-center text-[#4A6E52] text-sm">Sem dados para o período</div>
+              <div className="h-64 flex items-center justify-center text-[#555555] text-sm">Sem dados para o período</div>
             ) : (
               <ResponsiveContainer width="100%" height={260}>
                 <LineChart data={chartData} margin={{ top: 5, right: 45, left: -10, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1B3D20" />
-                  <XAxis dataKey="date" tick={{ fill: '#7AA880', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#222222" />
+                  <XAxis dataKey="date" tick={{ fill: '#888888', fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis yAxisId="revenue" orientation="left"  tick={{ fill: '#C8900A', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${(v / 1000).toFixed(0)}k`} />
                   <YAxis yAxisId="spend"   orientation="right" tick={{ fill: '#D45820', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v.toFixed(0)}`} width={55} />
                   <Tooltip content={<LineTooltip />} />
-                  <Legend formatter={(v) => <span style={{ color: '#7AA880', fontSize: '12px' }}>{v}</span>} />
+                  <Legend formatter={(v) => <span style={{ color: '#888888', fontSize: '12px' }}>{v}</span>} />
                   <Line yAxisId="revenue" type="monotone" dataKey="revenue" name="Faturamento" stroke="#C8900A" strokeWidth={2} dot={false} activeDot={{ r: 5 }} />
                   <Line yAxisId="spend"   type="monotone" dataKey="spend"   name="Gasto"       stroke="#D45820" strokeWidth={2} dot={false} activeDot={{ r: 5 }} />
                 </LineChart>
@@ -668,7 +668,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             {loading ? <Skeleton className="h-64 w-full" /> : sourceData.length === 0 ? (
-              <div className="h-64 flex items-center justify-center text-[#4A6E52] text-sm">Sem dados</div>
+              <div className="h-64 flex items-center justify-center text-[#555555] text-sm">Sem dados</div>
             ) : (
               <div>
                 <ResponsiveContainer width="100%" height={180}>
@@ -684,9 +684,9 @@ export default function Dashboard() {
                     <div key={item.name} className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-2">
                         <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                        <span className="text-[#7AA880]">{item.name}</span>
+                        <span className="text-[#888888]">{item.name}</span>
                       </div>
-                      <span className="text-[#E0EEE0] font-medium">{item.value}%</span>
+                      <span className="text-[#F0F0F0] font-medium">{item.value}%</span>
                     </div>
                   ))}
                 </div>
@@ -703,15 +703,15 @@ export default function Dashboard() {
         </CardHeader>
         <CardContent>
           {loading ? <Skeleton className="h-52 w-full" /> : hourData.length === 0 ? (
-            <div className="h-52 flex items-center justify-center text-[#4A6E52] text-sm">Sem dados</div>
+            <div className="h-52 flex items-center justify-center text-[#555555] text-sm">Sem dados</div>
           ) : (
             <ResponsiveContainer width="100%" height={210}>
               <BarChart data={hourData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1B3D20" vertical={false} />
-                <XAxis dataKey="hour" tick={{ fill: '#7AA880', fontSize: 10 }} axisLine={false} tickLine={false} interval={1} />
-                <YAxis tick={{ fill: '#7AA880', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#222222" vertical={false} />
+                <XAxis dataKey="hour" tick={{ fill: '#888888', fontSize: 10 }} axisLine={false} tickLine={false} interval={1} />
+                <YAxis tick={{ fill: '#888888', fontSize: 10 }} axisLine={false} tickLine={false} allowDecimals={false} />
                 <Tooltip content={<BarTooltip />} />
-                <Bar dataKey="count" name="Vendas" fill="#4DB848" radius={[3, 3, 0, 0]} />
+                <Bar dataKey="count" name="Vendas" fill="#C8FF00" radius={[3, 3, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           )}
@@ -729,18 +729,18 @@ export default function Dashboard() {
             {loading ? (
               [...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)
             ) : productData.length === 0 ? (
-              <div className="py-10 text-center text-[#4A6E52] text-sm">Sem dados</div>
+              <div className="py-10 text-center text-[#555555] text-sm">Sem dados</div>
             ) : (
               productData.slice(0, 6).map((p, i) => {
-                const colors = ['#4DB848', '#C8900A', '#D45820', '#7AA880', '#74B9FF', '#E4405F']
+                const colors = ['#C8FF00', '#C8900A', '#D45820', '#888888', '#74B9FF', '#E4405F']
                 return (
                   <div key={p.name}>
                     <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-[#E0EEE0] truncate max-w-[180px]" title={p.name}>{p.name}</span>
-                      <span className="text-[#7AA880] ml-2 flex-shrink-0">{p.pct.toFixed(1)}% · {p.count}</span>
+                      <span className="text-[#F0F0F0] truncate max-w-[180px]" title={p.name}>{p.name}</span>
+                      <span className="text-[#888888] ml-2 flex-shrink-0">{p.pct.toFixed(1)}% · {p.count}</span>
                     </div>
-                    <div className="h-1.5 bg-[#1B3D20] rounded-full overflow-hidden">
-                      <div className="h-full rounded-full transition-all" style={{ width: `${p.pct}%`, backgroundColor: colors[i] ?? '#7AA880' }} />
+                    <div className="h-1.5 bg-[#222222] rounded-full overflow-hidden">
+                      <div className="h-full rounded-full transition-all" style={{ width: `${p.pct}%`, backgroundColor: colors[i] ?? '#888888' }} />
                     </div>
                   </div>
                 )
@@ -756,7 +756,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             {loading ? <Skeleton className="h-52 w-full" /> : paymentData.length === 0 ? (
-              <div className="h-52 flex items-center justify-center text-[#4A6E52] text-sm">Sem dados</div>
+              <div className="h-52 flex items-center justify-center text-[#555555] text-sm">Sem dados</div>
             ) : (
               <div>
                 <ResponsiveContainer width="100%" height={180}>
@@ -771,8 +771,8 @@ export default function Dashboard() {
                   {paymentData.map(p => (
                     <div key={p.name} className="flex items-center gap-1.5 text-xs">
                       <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: p.color }} />
-                      <span className="text-[#7AA880]">{p.name}</span>
-                      <span className="text-[#E0EEE0] font-medium">{p.value}</span>
+                      <span className="text-[#888888]">{p.name}</span>
+                      <span className="text-[#F0F0F0] font-medium">{p.value}</span>
                     </div>
                   ))}
                 </div>
@@ -788,13 +788,13 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             {loading ? <Skeleton className="h-52 w-full" /> : weekdayData.length === 0 ? (
-              <div className="h-52 flex items-center justify-center text-[#4A6E52] text-sm">Sem dados</div>
+              <div className="h-52 flex items-center justify-center text-[#555555] text-sm">Sem dados</div>
             ) : (
               <ResponsiveContainer width="100%" height={210}>
                 <BarChart data={weekdayData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1B3D20" vertical={false} />
-                  <XAxis dataKey="day" tick={{ fill: '#7AA880', fontSize: 11 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: '#7AA880', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#222222" vertical={false} />
+                  <XAxis dataKey="day" tick={{ fill: '#888888', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: '#888888', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
                   <Tooltip content={<BarTooltip />} />
                   <Bar dataKey="count" name="Vendas" fill="#C8900A" radius={[3, 3, 0, 0]} />
                 </BarChart>
@@ -813,36 +813,36 @@ export default function Dashboard() {
           {loading ? (
             <div className="p-6 space-y-3">{[...Array(3)].map((_, i) => <Skeleton key={i} className="h-10 w-full" />)}</div>
           ) : topCampaigns.length === 0 ? (
-            <div className="px-6 py-10 text-center text-[#4A6E52] text-sm">
+            <div className="px-6 py-10 text-center text-[#555555] text-sm">
               {getSetting('facebook_token') ? 'Sem dados de campanha para o período.' : 'Conecte o Facebook Ads em Integrações.'}
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-[#1B3D20]">
+                  <tr className="border-b border-[#222222]">
                     {['Campanha', 'Gasto', 'Receita', 'ROAS', 'Compras', 'CPA', 'Status'].map((h) => (
-                      <th key={h} className="text-left px-4 py-3 text-xs font-medium text-[#7AA880] uppercase tracking-wide whitespace-nowrap">{h}</th>
+                      <th key={h} className="text-left px-4 py-3 text-xs font-medium text-[#888888] uppercase tracking-wide whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {topCampaigns.map((c, i) => (
-                    <tr key={c.id} className={`border-b border-[#1B3D20]/50 hover:bg-[#142918]/50 transition-colors ${i === topCampaigns.length - 1 ? 'border-0' : ''}`}>
+                    <tr key={c.id} className={`border-b border-[#222222]/50 hover:bg-[#1A1A1A]/50 transition-colors ${i === topCampaigns.length - 1 ? 'border-0' : ''}`}>
                       <td className="px-4 py-3">
-                        <p className="text-[#E0EEE0] font-medium truncate max-w-[220px]">{c.name}</p>
+                        <p className="text-[#F0F0F0] font-medium truncate max-w-[220px]">{c.name}</p>
                       </td>
-                      <td className="px-4 py-3 text-[#7AA880] whitespace-nowrap">{formatCurrency(c.spend)}</td>
+                      <td className="px-4 py-3 text-[#888888] whitespace-nowrap">{formatCurrency(c.spend)}</td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         <span className="text-[#C8900A] font-medium">{c.revenue > 0 ? formatCurrency(c.revenue) : '—'}</span>
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">
-                        <span className={`font-semibold ${c.roas >= 3 ? 'text-[#4DB848]' : c.roas > 0 ? 'text-[#C8900A]' : 'text-[#4A6E52]'}`}>
+                        <span className={`font-semibold ${c.roas >= 3 ? 'text-[#C8FF00]' : c.roas > 0 ? 'text-[#C8900A]' : 'text-[#555555]'}`}>
                           {c.roas > 0 ? `${c.roas.toFixed(2)}x` : '—'}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-[#7AA880] whitespace-nowrap">{c.purchases > 0 ? formatNumber(c.purchases) : '—'}</td>
-                      <td className="px-4 py-3 text-[#7AA880] whitespace-nowrap">{c.cpa > 0 ? formatCurrency(c.cpa) : '—'}</td>
+                      <td className="px-4 py-3 text-[#888888] whitespace-nowrap">{c.purchases > 0 ? formatNumber(c.purchases) : '—'}</td>
+                      <td className="px-4 py-3 text-[#888888] whitespace-nowrap">{c.cpa > 0 ? formatCurrency(c.cpa) : '—'}</td>
                       <td className="px-4 py-3">
                         <Badge variant={c.status === 'ACTIVE' ? 'active' : 'paused'}>
                           {c.status === 'ACTIVE' ? 'Ativo' : 'Pausado'}

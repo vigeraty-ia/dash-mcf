@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { Copy, CheckCircle, XCircle, Loader2, Zap, Share2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -22,7 +22,7 @@ function CopyButton({ text }: { text: string }) {
   }
   return (
     <Button variant="outline" size="sm" onClick={handleCopy} className="shrink-0">
-      {copied ? <CheckCircle className="w-4 h-4 text-[#4DB848]" /> : <Copy className="w-4 h-4" />}
+      {copied ? <CheckCircle className="w-4 h-4 text-[#C8FF00]" /> : <Copy className="w-4 h-4" />}
       <span className="ml-1.5 hidden sm:inline">{copied ? 'Copiado!' : 'Copiar'}</span>
     </Button>
   )
@@ -38,28 +38,28 @@ function WebhookCard({ platform, color }: { platform: string; color: string }) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${color}`}>
-              <Zap className="w-5 h-5 text-[#E0EEE0]" />
+              <Zap className="w-5 h-5 text-[#F0F0F0]" />
             </div>
             <div>
               <CardTitle className="text-base">{platform}</CardTitle>
               <CardDescription>Checkout</CardDescription>
             </div>
           </div>
-          <div className={`flex items-center gap-1.5 text-xs font-medium ${active ? 'text-[#4DB848]' : 'text-[#4A6E52]'}`}>
-            <div className={`w-2 h-2 rounded-full ${active ? 'bg-[#4DB848]' : 'bg-gray-500'}`} />
+          <div className={`flex items-center gap-1.5 text-xs font-medium ${active ? 'text-[#C8FF00]' : 'text-[#555555]'}`}>
+            <div className={`w-2 h-2 rounded-full ${active ? 'bg-[#C8FF00]' : 'bg-gray-500'}`} />
             {active ? 'Ativo' : 'Inativo'}
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
         <div>
-          <p className="text-xs text-[#7AA880] mb-1.5">URL do Webhook</p>
+          <p className="text-xs text-[#888888] mb-1.5">URL do Webhook</p>
           <div className="flex items-center gap-2">
             <Input value={url} readOnly className="text-xs font-mono" />
             <CopyButton text={url} />
           </div>
         </div>
-        <p className="text-xs text-[#4A6E52]">
+        <p className="text-xs text-[#555555]">
           Cole esta URL nas configurações de webhook da {platform}. O status ficará Ativo após o primeiro evento recebido.
         </p>
       </CardContent>
@@ -136,21 +136,21 @@ export default function Integrations() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-xl font-bold text-[#E0EEE0]">Integrações</h1>
+      <h1 className="text-xl font-bold text-[#F0F0F0]">Integrações</h1>
 
       {/* Facebook Ads */}
       <Card>
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-[#1877F2] flex items-center justify-center">
-              <Share2 className="w-5 h-5 text-[#E0EEE0]" />
+              <Share2 className="w-5 h-5 text-[#F0F0F0]" />
             </div>
             <div>
               <CardTitle className="text-base">Facebook Ads</CardTitle>
               <CardDescription>Conecte via Access Token do Facebook</CardDescription>
             </div>
             {!loadingStatus && (
-              <div className={`ml-auto flex items-center gap-1.5 text-sm font-medium ${connectedAccount ? 'text-[#4DB848]' : 'text-[#D45820]'}`}>
+              <div className={`ml-auto flex items-center gap-1.5 text-sm font-medium ${connectedAccount ? 'text-[#C8FF00]' : 'text-[#D45820]'}`}>
                 {connectedAccount
                   ? <><CheckCircle className="w-4 h-4" /> Conectado</>
                   : <><XCircle className="w-4 h-4" /> Desconectado</>}
@@ -161,10 +161,10 @@ export default function Integrations() {
         <CardContent className="space-y-4">
           {connectedAccount ? (
             <div className="space-y-4">
-              <div className="bg-[#4DB848]/10 border border-[#4DB848]/20 rounded-lg p-4">
-                <p className="text-sm text-[#7AA880] mb-1">Conta conectada</p>
-                <p className="text-[#E0EEE0] font-semibold">{connectedAccount.name}</p>
-                <p className="text-[#7AA880] text-xs mt-0.5">ID: {connectedAccount.id}</p>
+              <div className="bg-[#C8FF00]/10 border border-[#C8FF00]/20 rounded-lg p-4">
+                <p className="text-sm text-[#888888] mb-1">Conta conectada</p>
+                <p className="text-[#F0F0F0] font-semibold">{connectedAccount.name}</p>
+                <p className="text-[#888888] text-xs mt-0.5">ID: {connectedAccount.id}</p>
               </div>
               <Button variant="destructive" size="sm" onClick={handleDisconnect}>
                 Desconectar
@@ -173,7 +173,7 @@ export default function Integrations() {
           ) : (
             <div className="space-y-4">
               <div>
-                <p className="text-xs text-[#7AA880] mb-1.5">Access Token do Facebook</p>
+                <p className="text-xs text-[#888888] mb-1.5">Access Token do Facebook</p>
                 <div className="flex gap-2">
                   <Input
                     type="password"
@@ -186,14 +186,14 @@ export default function Integrations() {
                     {connecting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Conectar'}
                   </Button>
                 </div>
-                <p className="text-xs text-[#4A6E52] mt-2">
+                <p className="text-xs text-[#555555] mt-2">
                   Gere um token permanente no Facebook Business Manager → Ferramentas → Tokens de acesso do sistema.
                 </p>
               </div>
 
               {adAccounts.length > 0 && (
                 <div>
-                  <p className="text-xs text-[#7AA880] mb-1.5">Selecione a conta de anúncio</p>
+                  <p className="text-xs text-[#888888] mb-1.5">Selecione a conta de anúncio</p>
                   <Select value={selectedAccount} onValueChange={handleSelectAccount}>
                     <SelectTrigger>
                       <SelectValue placeholder="Escolha uma conta..." />

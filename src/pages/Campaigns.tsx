@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { ChevronDown, ChevronRight, AlertCircle, Search, WifiOff, History, DollarSign, Power, ImageIcon, Plus, Clock, Pencil, Check, X, Loader2 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -122,7 +122,7 @@ const COLS = [
 
 function MetricCell({ value, highlight }: { value: string; highlight?: boolean }) {
   return (
-    <td className={`px-3 py-2.5 whitespace-nowrap text-sm ${highlight ? 'text-[#00B894] font-semibold' : 'text-gray-300'}`}>
+    <td className={`px-3 py-2.5 whitespace-nowrap text-sm ${highlight ? 'text-[#C8FF00] font-semibold' : 'text-gray-300'}`}>
       {value}
     </td>
   )
@@ -141,7 +141,7 @@ function InsightCells({ ins }: { ins: FbInsights | null }) {
   if (!ins) {
     return <>{Array.from({ length: 11 }).map((_, i) => <td key={i} className="px-3 py-2.5 text-gray-600 text-sm">—</td>)}</>
   }
-  const roasColor = ins.roas >= 3 ? 'text-[#00B894] font-semibold' : ins.roas > 0 ? 'text-yellow-400 font-semibold' : 'text-gray-300'
+  const roasColor = ins.roas >= 3 ? 'text-[#C8FF00] font-semibold' : ins.roas > 0 ? 'text-yellow-400 font-semibold' : 'text-gray-300'
   return (
     <>
       <MetricCell value={formatCurrency(ins.spend)} />
@@ -347,7 +347,7 @@ function CampaignRow({
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-1">
                 <div className="relative">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-[#7AA880]">R$</span>
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-[#888888]">R$</span>
                   <input
                     type="number"
                     min="1"
@@ -355,14 +355,14 @@ function CampaignRow({
                     value={budgetInput}
                     onChange={e => setBudgetInput(e.target.value)}
                     onKeyDown={e => { if (e.key === 'Enter') saveBudget(e); if (e.key === 'Escape') cancelEdit(e) }}
-                    className="w-24 pl-7 pr-2 py-1 bg-[#081208] border border-[#4DB848] rounded text-sm text-white focus:outline-none"
+                    className="w-24 pl-7 pr-2 py-1 bg-[#0D0D0D] border border-[#C8FF00] rounded text-sm text-white focus:outline-none"
                     autoFocus
                   />
                 </div>
                 <button
                   onClick={saveBudget}
                   disabled={saving}
-                  className="p-1 rounded hover:bg-[#4DB848]/20 text-[#4DB848] disabled:opacity-50"
+                  className="p-1 rounded hover:bg-[#C8FF00]/20 text-[#C8FF00] disabled:opacity-50"
                 >
                   {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Check className="w-3.5 h-3.5" />}
                 </button>
@@ -379,7 +379,7 @@ function CampaignRow({
               </span>
               <button
                 onClick={startEdit}
-                className="opacity-0 group-hover/bud:opacity-100 p-1 rounded hover:bg-[#1B3D20] text-[#7AA880] transition-opacity"
+                className="opacity-0 group-hover/bud:opacity-100 p-1 rounded hover:bg-[#222222] text-[#888888] transition-opacity"
                 title="Editar orçamento"
               >
                 <Pencil className="w-3 h-3" />
@@ -445,11 +445,11 @@ const EVENT_STYLE: Record<string, { tag: string; dot: string; icon: React.ReactN
   update_campaign_run_status: { tag: 'text-[#D45820] bg-[#D45820]/10 border-[#D45820]/20', dot: 'bg-[#D45820]', icon: <Power className="w-3 h-3" /> },
   update_ad_run_status:       { tag: 'text-[#D45820] bg-[#D45820]/10 border-[#D45820]/20', dot: 'bg-[#D45820]', icon: <Power className="w-3 h-3" /> },
   update_ad_set_run_status:   { tag: 'text-[#D45820] bg-[#D45820]/10 border-[#D45820]/20', dot: 'bg-[#D45820]', icon: <Power className="w-3 h-3" /> },
-  update_ad_creative:         { tag: 'text-[#4DB848] bg-[#4DB848]/10 border-[#4DB848]/20', dot: 'bg-[#4DB848]', icon: <ImageIcon className="w-3 h-3" /> },
-  create_ad_creative:         { tag: 'text-[#4DB848] bg-[#4DB848]/10 border-[#4DB848]/20', dot: 'bg-[#4DB848]', icon: <ImageIcon className="w-3 h-3" /> },
-  create_campaign:            { tag: 'text-[#7FCC5E] bg-[#7FCC5E]/10 border-[#7FCC5E]/20', dot: 'bg-[#7FCC5E]', icon: <Plus className="w-3 h-3" /> },
-  create_ad_set:              { tag: 'text-[#7FCC5E] bg-[#7FCC5E]/10 border-[#7FCC5E]/20', dot: 'bg-[#7FCC5E]', icon: <Plus className="w-3 h-3" /> },
-  create_ad:                  { tag: 'text-[#7FCC5E] bg-[#7FCC5E]/10 border-[#7FCC5E]/20', dot: 'bg-[#7FCC5E]', icon: <Plus className="w-3 h-3" /> },
+  update_ad_creative:         { tag: 'text-[#C8FF00] bg-[#C8FF00]/10 border-[#C8FF00]/20', dot: 'bg-[#C8FF00]', icon: <ImageIcon className="w-3 h-3" /> },
+  create_ad_creative:         { tag: 'text-[#C8FF00] bg-[#C8FF00]/10 border-[#C8FF00]/20', dot: 'bg-[#C8FF00]', icon: <ImageIcon className="w-3 h-3" /> },
+  create_campaign:            { tag: 'text-[#DFFF4D] bg-[#DFFF4D]/10 border-[#DFFF4D]/20', dot: 'bg-[#DFFF4D]', icon: <Plus className="w-3 h-3" /> },
+  create_ad_set:              { tag: 'text-[#DFFF4D] bg-[#DFFF4D]/10 border-[#DFFF4D]/20', dot: 'bg-[#DFFF4D]', icon: <Plus className="w-3 h-3" /> },
+  create_ad:                  { tag: 'text-[#DFFF4D] bg-[#DFFF4D]/10 border-[#DFFF4D]/20', dot: 'bg-[#DFFF4D]', icon: <Plus className="w-3 h-3" /> },
 }
 
 const OBJ_TYPE_LABEL: Record<string, string> = {
@@ -540,10 +540,10 @@ function ChangeHistory({ token, accountId }: { token: string; accountId: string 
   return (
     <Card>
       <CardContent className="p-0">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-[#1B3D20]">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[#222222]">
           <div className="flex items-center gap-2">
-            <History className="w-4 h-4 text-[#4DB848]" />
-            <span className="text-sm font-semibold text-[#E0EEE0]">Histórico de Alterações</span>
+            <History className="w-4 h-4 text-[#C8FF00]" />
+            <span className="text-sm font-semibold text-[#F0F0F0]">Histórico de Alterações</span>
           </div>
           <Select value={period} onValueChange={setPeriod}>
             <SelectTrigger className="w-36 h-8 text-xs"><SelectValue /></SelectTrigger>
@@ -562,27 +562,27 @@ function ChangeHistory({ token, accountId }: { token: string; accountId: string 
           </div>
         ) : activities.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-12">
-            <Clock className="w-8 h-8 text-[#1B3D20]" />
-            <p className="text-sm text-[#4A6E52]">Nenhuma alteração encontrada no período.</p>
+            <Clock className="w-8 h-8 text-[#222222]" />
+            <p className="text-sm text-[#555555]">Nenhuma alteração encontrada no período.</p>
           </div>
         ) : (
           <div>
             {Object.entries(grouped).map(([date, entries]) => (
               <div key={date}>
-                <div className="px-4 py-1.5 bg-[#081208] border-b border-[#1B3D20]">
-                  <span className="text-[11px] font-semibold text-[#7AA880] uppercase tracking-wider">{date}</span>
+                <div className="px-4 py-1.5 bg-[#0D0D0D] border-b border-[#222222]">
+                  <span className="text-[11px] font-semibold text-[#888888] uppercase tracking-wider">{date}</span>
                 </div>
                 {entries.map((entry, i) => {
                   const label    = EVENT_LABELS[entry.event_type] ?? entry.translated_event_type ?? entry.event_type
                   const style    = EVENT_STYLE[entry.event_type]
-                  const tagCls   = style?.tag ?? 'text-[#7AA880] bg-[#1B3D20]/50 border-[#1B3D20]'
-                  const dotCls   = style?.dot ?? 'bg-[#4A6E52]'
+                  const tagCls   = style?.tag ?? 'text-[#888888] bg-[#222222]/50 border-[#222222]'
+                  const dotCls   = style?.dot ?? 'bg-[#555555]'
                   const detail   = parseExtraData(entry.extra_data ?? '{}', entry.event_type)
                   const dd       = parseEventTime(entry.event_time)
                   const time     = `${String(dd.getHours()).padStart(2,'0')}:${String(dd.getMinutes()).padStart(2,'0')}`
                   const objLabel = OBJ_TYPE_LABEL[entry.object_type] ?? entry.object_type
                   return (
-                    <div key={i} className="flex items-start gap-3 px-4 py-3 border-b border-[#1B3D20]/40 hover:bg-[#142918]/30 transition-colors last:border-0">
+                    <div key={i} className="flex items-start gap-3 px-4 py-3 border-b border-[#222222]/40 hover:bg-[#1A1A1A]/30 transition-colors last:border-0">
                       <div className="pt-2 flex-shrink-0">
                         <div className={`w-2 h-2 rounded-full ${dotCls}`} />
                       </div>
@@ -591,10 +591,10 @@ function ChangeHistory({ token, accountId }: { token: string; accountId: string 
                           <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${tagCls}`}>
                             {style?.icon}{label}
                           </span>
-                          <span className="text-[10px] text-[#4A6E52]">{objLabel}</span>
-                          <span className="text-[10px] text-[#4A6E52] ml-auto font-mono">{time}</span>
+                          <span className="text-[10px] text-[#555555]">{objLabel}</span>
+                          <span className="text-[10px] text-[#555555] ml-auto font-mono">{time}</span>
                         </div>
-                        <p className="text-sm text-[#E0EEE0] mt-0.5 truncate">{entry.object_name || '—'}</p>
+                        <p className="text-sm text-[#F0F0F0] mt-0.5 truncate">{entry.object_name || '—'}</p>
                         {detail && <p className="text-xs text-[#C8900A] mt-0.5 font-mono">{detail}</p>}
                       </div>
                     </div>
@@ -739,20 +739,20 @@ export default function Campaigns() {
                 type="date"
                 value={customStart}
                 onChange={e => setCustomStart(e.target.value)}
-                className="h-9 px-3 rounded-md border border-[#1B3D20] bg-[#081208] text-[#E0EEE0] text-sm focus:outline-none focus:ring-1 focus:ring-[#4DB848]"
+                className="h-9 px-3 rounded-md border border-[#222222] bg-[#0D0D0D] text-[#F0F0F0] text-sm focus:outline-none focus:ring-1 focus:ring-[#C8FF00]"
               />
-              <span className="text-[#7AA880] text-sm">até</span>
+              <span className="text-[#888888] text-sm">até</span>
               <input
                 type="date"
                 value={customEnd}
                 min={customStart}
                 onChange={e => setCustomEnd(e.target.value)}
-                className="h-9 px-3 rounded-md border border-[#1B3D20] bg-[#081208] text-[#E0EEE0] text-sm focus:outline-none focus:ring-1 focus:ring-[#4DB848]"
+                className="h-9 px-3 rounded-md border border-[#222222] bg-[#0D0D0D] text-[#F0F0F0] text-sm focus:outline-none focus:ring-1 focus:ring-[#C8FF00]"
               />
               <button
                 onClick={applyCustom}
                 disabled={!customStart || !customEnd || customStart > customEnd}
-                className="h-9 px-4 rounded-md bg-[#4DB848] text-white text-sm font-medium hover:bg-[#3da038] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="h-9 px-4 rounded-md bg-[#C8FF00] text-white text-sm font-medium hover:bg-[#A3CC00] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 Aplicar
               </button>
