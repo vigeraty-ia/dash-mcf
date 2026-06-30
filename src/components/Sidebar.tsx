@@ -39,8 +39,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               <Leaf className="w-5 h-5 text-white" />
             </div>
             <div>
-              <p className="text-[#F0F0F0] font-bold text-sm leading-tight">Restart</p>
-              <p className="text-[#888888] text-xs">Intestinal · Ads</p>
+              <p className="text-[#F0F0F0] font-bold text-sm leading-tight">Minha Casa</p>
+              <p className="text-[#888888] text-xs">Financiada · Ads</p>
             </div>
           </div>
           <button
@@ -76,7 +76,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* Footer */}
         <div className="p-4 border-t border-[#222222]">
           <div className="bg-[#0D0D0D] rounded-lg p-3 text-xs text-[#888888]">
-            <p className="font-semibold text-[#C8FF00] mb-0.5">Restart Intestinal</p>
+            <p className="font-semibold text-[#C8FF00] mb-0.5">Minha Casa Financiada</p>
             <p>Painel de Rastreamento</p>
           </div>
         </div>
