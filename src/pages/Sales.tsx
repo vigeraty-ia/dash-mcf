@@ -109,7 +109,7 @@ export default function Sales() {
     const { start, end } = getDateRange(preset, cs, ce)
 
     let query = supabase
-      .from('vendas')
+      .from('sales_')
       .select('*')
       .order('data', { ascending: false })
       .order('horario', { ascending: false })

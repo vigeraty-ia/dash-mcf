@@ -256,14 +256,14 @@ export default function Dashboard() {
 
     // ── Supabase: vendas do período atual ──
     const salesQuery = supabase
-      .from('vendas')
+      .from('sales_')
       .select('valor_venda, data, utm_source, horario, produto_comprado, metodo_de_pagamento')
       .gte('data', start)
       .lte('data', end)
 
     // ── Supabase: vendas do período anterior ──
     const prevSalesQuery = supabase
-      .from('vendas')
+      .from('sales_')
       .select('valor_venda')
       .gte('data', prev_start)
       .lte('data', prev_end)
