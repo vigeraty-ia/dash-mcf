@@ -257,16 +257,16 @@ export default function Dashboard() {
     // ── Supabase: vendas do período atual ──
     const salesQuery = supabase
       .from('sales_')
-      .select('valor_venda, data, utm_source, horario, produto_comprado, metodo_de_pagamento')
-      .gte('data', start)
-      .lte('data', end)
+      .select('value, date, utm_source, product, checkout')
+      .gte('date', start)
+      .lte('date', end)
 
     // ── Supabase: vendas do período anterior ──
     const prevSalesQuery = supabase
       .from('sales_')
-      .select('valor_venda')
-      .gte('data', prev_start)
-      .lte('data', prev_end)
+      .select('value')
+      .gte('date', prev_start)
+      .lte('date', prev_end)
 
     // ── Facebook: insights de campanha ──
     const fbCampaignPromise = (token && accId) ? fetch(
@@ -291,11 +291,11 @@ export default function Dashboard() {
     ])
 
     // ── Calcular KPIs atuais ──
-    const sales    = (salesRes.data ?? []) as Array<{ valor_venda: number; data: string; utm_source: string; horario: string; produto_comprado: string; metodo_de_pagamento: string }>
-    const prevSalesArr = (prevSalesRes.data ?? []) as Array<{ valor_venda: number }>
+    const sales    = (salesRes.data ?? []) as Array<{ value: number; date: string; utm_source: string; product: string; checkout: string }>
+    const prevSalesArr = (prevSalesRes.data ?? []) as Array<{ value: number }>
 
-    const grossRevenue = sales.reduce((s, r) => s + (r.valor_venda ?? 0), 0)
-    const prevRevenue  = prevSalesArr.reduce((s, r) => s + (r.valor_venda ?? 0), 0)
+    const grossRevenue = sales.reduce((s, r) => s + (r.value ?? 0), 0)
+    const prevRevenue  = prevSalesArr.reduce((s, r) => s + (r.value ?? 0), 0)
 
     const fbMetrics = extractFbMetrics(fbAll?.data)
     const adSpend   = fbMetrics.spend * 1.1215 // +12.15% imposto sobre anúncios
@@ -328,8 +328,8 @@ export default function Dashboard() {
     // ── Gráfico: receita diária (vendas) + gasto diário (Facebook) ──
     const revenueByDate: Record<string, number> = {}
     sales.forEach(s => {
-      const d = s.data?.slice(0, 10) ?? ''
-      if (d) revenueByDate[d] = (revenueByDate[d] ?? 0) + (s.valor_venda ?? 0)
+      const d = s.date?.slice(0, 10) ?? ''
+      if (d) revenueByDate[d] = (revenueByDate[d] ?? 0) + (s.value ?? 0)
     })
 
     const spendByDate: Record<string, number> = {}
@@ -357,7 +357,7 @@ export default function Dashboard() {
     // ── CPA × ROAS × Vendas (diário) ──
     if (fbDaily?.data) {
       const countByDate: Record<string, number> = {}
-      sales.forEach(s => { if (s.data) countByDate[s.data] = (countByDate[s.data] ?? 0) + 1 })
+      sales.forEach(s => { if (s.date) countByDate[s.date.slice(0,10)] = (countByDate[s.date.slice(0,10)] ?? 0) + 1 })
 
       const dailyRows = (fbDaily.data as Array<Record<string, unknown>>)
         .filter(row => noExclude || (row.date_start as string) < todayStr)
@@ -410,33 +410,32 @@ export default function Dashboard() {
     const hourCounts: Record<string, number> = {}
     for (let h = 0; h < 24; h++) hourCounts[String(h).padStart(2, '0')] = 0
     sales.forEach(s => {
-      if (s.horario) { const hr = s.horario.slice(0, 2); hourCounts[hr] = (hourCounts[hr] ?? 0) + 1 }
+      if (s.date) { const hr = new Date(s.date).getHours(); const k = String(hr).padStart(2,'0'); hourCounts[k] = (hourCounts[k] ?? 0) + 1 }
     })
-    // Monta em ordem 00→23 explicitamente (Object.entries ordena "10"-"23" antes de "00"-"09")
     const hourPoints: HourPoint[] = []
     for (let h = 0; h < 24; h++) { const k = String(h).padStart(2,'0'); hourPoints.push({ hour: k, count: hourCounts[k] ?? 0 }) }
     setHourData(hourPoints)
 
     // ── Vendas por Produto ──
     const prodCounts: Record<string, number> = {}
-    sales.forEach(s => { if (s.produto_comprado) prodCounts[s.produto_comprado] = (prodCounts[s.produto_comprado] ?? 0) + 1 })
+    sales.forEach(s => { if (s.product) prodCounts[s.product] = (prodCounts[s.product] ?? 0) + 1 })
     const tot = sales.length || 1
     setProductData(Object.entries(prodCounts).sort((a, b) => b[1] - a[1]).map(([name, count]) => ({ name, count, pct: (count / tot) * 100 })))
 
     // ── Vendas por Pagamento ──
     const payCounts: Record<string, number> = {}
     sales.forEach(s => {
-      const m = (s.metodo_de_pagamento ?? '').toLowerCase()
-      const key = m.includes('pix') ? 'PIX' : m.includes('cart') || m.includes('cred') ? 'Cartão' : m.includes('boleto') ? 'Boleto' : 'Outros'
+      const m = (s.checkout ?? '').toLowerCase()
+      const key = m.includes('pix') ? 'PIX' : m.includes('cart') || m.includes('cred') ? 'Cartão' : m.includes('boleto') ? 'Boleto' : (s.checkout || 'Outros')
       payCounts[key] = (payCounts[key] ?? 0) + 1
     })
-    const PAY_COLORS: Record<string, string> = { PIX: '#C8FF00', Cartão: '#C8900A', Boleto: '#D45820', Outros: '#888888' }
+    const PAY_COLORS: Record<string, string> = { PIX: '#C8FF00', Cartão: '#C8900A', Boleto: '#D45820', Hotmart: '#C8900A', Kiwify: '#74B9FF', Kirvano: '#D45820', Outros: '#888888' }
     setPaymentData(Object.entries(payCounts).sort((a, b) => b[1] - a[1]).map(([name, value]) => ({ name, value, color: PAY_COLORS[name] ?? '#888888' })))
 
     // ── Vendas por Dia da Semana ──
     const DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
     const dayCounts: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
-    sales.forEach(s => { if (s.data) { const d = new Date(s.data + 'T12:00:00'); dayCounts[d.getDay()] = (dayCounts[d.getDay()] ?? 0) + 1 } })
+    sales.forEach(s => { if (s.date) { const d = new Date(s.date); dayCounts[d.getDay()] = (dayCounts[d.getDay()] ?? 0) + 1 } })
     setWeekdayData([1, 2, 3, 4, 5, 6, 0].map(i => ({ day: DAYS[i], count: dayCounts[i] })))
 
     // ── Top campanhas ──

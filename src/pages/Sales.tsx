@@ -12,23 +12,22 @@ const ITEMS_PER_PAGE = 15
 type DatePreset = 'today' | 'yesterday' | '7d' | '14d' | '30d' | 'this_month' | 'last_month' | 'maximum' | 'custom'
 
 interface VendaRow {
-  id: number
-  data: string
-  horario: string
-  plano_produto: string
-  nome_do_comprador: string
-  email: string
-  celular: string
-  produto_comprado: string
-  cod_do_produto: string | null
-  valor_venda: number
-  utm_source: string
-  utm_medium: string
-  utm_campaign: string
-  utm_content: string
-  utm_term: string
-  src: string
-  metodo_de_pagamento: string
+  id: string
+  external_id: string | null
+  date: string
+  product: string
+  value: number
+  checkout: string
+  status: string
+  type: string
+  utm_source: string | null
+  utm_medium: string | null
+  utm_campaign: string | null
+  utm_content: string | null
+  utm_term: string | null
+  campaign_id: string | null
+  adset_id: string | null
+  ad_id: string | null
 }
 
 function getDateRange(preset: DatePreset, cs?: string, ce?: string): { start: string | null; end: string | null } {
@@ -111,11 +110,10 @@ export default function Sales() {
     let query = supabase
       .from('sales_')
       .select('*')
-      .order('data', { ascending: false })
-      .order('horario', { ascending: false })
+      .order('date', { ascending: false })
 
-    if (start) query = query.gte('data', start)
-    if (end)   query = query.lte('data', end)
+    if (start) query = query.gte('date', start)
+    if (end)   query = query.lte('date', end)
 
     const { data, error: err } = await query
     if (err) { setError(err.message); setLoading(false); return }
@@ -132,25 +130,24 @@ export default function Sales() {
     }
   }
 
-  const uniquePayments = [...new Set(allSales.map(s => s.metodo_de_pagamento).filter(Boolean))]
-  const uniqueProducts  = [...new Set(allSales.map(s => s.produto_comprado).filter(Boolean))]
+  const uniquePayments = [...new Set(allSales.map(s => s.checkout).filter(Boolean))]
+  const uniqueProducts  = [...new Set(allSales.map(s => s.product).filter(Boolean))]
 
   const filtered = allSales.filter((s) => {
     const q = search.toLowerCase()
     const matchesSearch =
       !search ||
-      s.nome_do_comprador?.toLowerCase().includes(q) ||
-      s.produto_comprado?.toLowerCase().includes(q) ||
+      s.product?.toLowerCase().includes(q) ||
       s.utm_campaign?.toLowerCase().includes(q) ||
-      s.email?.toLowerCase().includes(q)
-    const matchesPayment = paymentFilter === 'all' || s.metodo_de_pagamento === paymentFilter
-    const matchesProduct  = productFilter === 'all'  || s.produto_comprado === productFilter
+      s.external_id?.toLowerCase().includes(q)
+    const matchesPayment = paymentFilter === 'all' || s.checkout === paymentFilter
+    const matchesProduct  = productFilter === 'all'  || s.product === productFilter
     return matchesSearch && matchesPayment && matchesProduct
   })
 
   const totalPages   = Math.ceil(filtered.length / ITEMS_PER_PAGE)
   const paginated    = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE)
-  const totalRevenue = filtered.reduce((acc, s) => acc + (s.valor_venda ?? 0), 0)
+  const totalRevenue = filtered.reduce((acc, s) => acc + (s.value ?? 0), 0)
 
   const resetPage = (fn: () => void) => { fn(); setPage(1) }
 
@@ -284,24 +281,23 @@ export default function Sales() {
                           className={`border-b border-[#222222]/50 hover:bg-[#1A1A1A]/40 transition-colors ${i === paginated.length - 1 ? 'border-0' : ''}`}
                         >
                           <td className="px-4 py-3 text-[#888888] whitespace-nowrap text-xs">
-                            <div>{sale.data ?? '—'}</div>
-                            {sale.horario && <div className="text-[#555555]">{sale.horario.slice(0, 5)}</div>}
+                            <div>{sale.date ? sale.date.slice(0, 10) : '—'}</div>
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#F0F0F0] font-medium truncate max-w-[150px] text-sm">{sale.nome_do_comprador || '—'}</p>
-                            <p className="text-[#555555] text-xs truncate max-w-[150px]">{sale.email || ''}</p>
+                            <p className="text-[#F0F0F0] font-medium truncate max-w-[150px] text-sm">{sale.external_id || '—'}</p>
+                            <p className="text-[#555555] text-xs truncate max-w-[150px]">{sale.status || ''}</p>
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-gray-200 truncate max-w-[150px] text-xs">{sale.produto_comprado || '—'}</p>
+                            <p className="text-gray-200 truncate max-w-[150px] text-xs">{sale.product || '—'}</p>
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#888888] truncate max-w-[130px] text-xs">{sale.plano_produto || '—'}</p>
+                            <p className="text-[#888888] truncate max-w-[130px] text-xs">{sale.type || '—'}</p>
                           </td>
                           <td className="px-4 py-3 whitespace-nowrap">
-                            <span className="text-[#C8900A] font-semibold">{formatCurrency(sale.valor_venda ?? 0)}</span>
+                            <span className="text-[#C8900A] font-semibold">{formatCurrency(sale.value ?? 0)}</span>
                           </td>
                           <td className="px-4 py-3">
-                            <PaymentBadge method={sale.metodo_de_pagamento} />
+                            <PaymentBadge method={sale.checkout} />
                           </td>
                           <td className="px-4 py-3">
                             <p className="text-[#888888] truncate max-w-[140px] text-xs" title={sale.utm_campaign}>
