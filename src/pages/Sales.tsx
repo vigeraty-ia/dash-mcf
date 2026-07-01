@@ -300,15 +300,15 @@ export default function Sales() {
                             <PaymentBadge method={sale.checkout} />
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#888888] truncate max-w-[140px] text-xs" title={sale.utm_campaign}>
+                            <p className="text-[#888888] truncate max-w-[140px] text-xs" title={sale.utm_campaign ?? undefined}>
                               {sale.utm_campaign || '—'}
                             </p>
                           </td>
                           <td className="px-4 py-3">
-                            <SourceBadge source={sale.utm_source} />
+                            <SourceBadge source={sale.utm_source ?? ''} />
                           </td>
                           <td className="px-4 py-3">
-                            <p className="text-[#888888] truncate max-w-[130px] text-xs" title={sale.utm_content}>
+                            <p className="text-[#888888] truncate max-w-[130px] text-xs" title={sale.utm_content ?? undefined}>
                               {sale.utm_content || '—'}
                             </p>
                           </td>
